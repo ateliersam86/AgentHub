@@ -1,6 +1,6 @@
 # Agent Hub 🤖
 
-A centralized platform for managing AI agents with a modern web interface.
+A centralized platform for managing AI agents with a modern web interface. Built as a lightweight, open-source alternative to proprietary AI IDEs.
 
 ![Agent Hub](https://img.shields.io/badge/Status-Alpha-yellow)
 ![Next.js](https://img.shields.io/badge/Next.js-15-black)
@@ -8,26 +8,62 @@ A centralized platform for managing AI agents with a modern web interface.
 
 ## ✨ Features
 
-- **CLI Chat** - Chat with Gemini CLI directly from the web interface
-- **Terminal Hub** - Multi-project terminal sessions via WebSocket
-- **Real-time Streaming** - Live output from AI agents
-- **Token Statistics** - Track usage and response times
+### CLI Chat
+- **Real Gemini CLI integration** - Uses your authenticated Gemini CLI, not API keys
+- **Token statistics** - Track usage per message (tokens, response time)
+- **Project context** - Conversations are scoped to a project path
+- **Markdown rendering** - Full markdown support with syntax highlighting
+
+### Terminal Hub
+- **Multi-project terminals** - Manage multiple PTY sessions via WebSocket
+- **Real-time streaming** - Live terminal output in browser
+- **Session persistence** - Sessions survive page reloads
+
+### Dashboard
 - **Modern UI** - Dark glassmorphism design
+- **Connection status** - Real-time daemon health monitoring
+- **Project switching** - Quick navigation between projects
+
+## ⚠️ Limitations (vs Antigravity/Cursor)
+
+| Feature | Agent Hub | Antigravity/Cursor |
+|---------|-----------|-------------------|
+| **Code editing** | ❌ No | ✅ Full file editing |
+| **Codebase search** | ❌ No | ✅ Semantic search |
+| **Auto-complete** | ❌ No | ✅ AI completions |
+| **Tool use** | ❌ No | ✅ File/terminal tools |
+| **Multi-model** | 🟡 Gemini only | ✅ Claude, GPT, Gemini |
+| **Context window** | 🟡 Manual | ✅ Automatic indexing |
+| **Streaming** | 🟡 Buffered* | ✅ Token-by-token |
+
+*\* Gemini CLI buffers output - tokens arrive in chunks, not individually*
+
+### What Agent Hub IS:
+- A **chat interface** using the Gemini CLI
+- A **terminal manager** for multiple projects
+- A **learning project** for understanding AI agent architecture
+
+### What Agent Hub is NOT:
+- A full IDE replacement
+- An agentic coding assistant (no file modifications)
+- A production-ready tool
 
 ## 🏗 Architecture
 
 ```
 AgentHub/
-├── daemon/           # WebSocket daemon for terminal & CLI management
+├── daemon/           # WebSocket daemon (Node.js)
 │   └── src/
-│       ├── index.ts          # Main daemon server
-│       ├── terminal-manager.ts
-│       └── cli-chat-manager.ts
-├── website/          # Next.js 15 web application
+│       ├── index.ts              # Main server (:3100)
+│       ├── terminal-manager.ts   # PTY session management
+│       ├── cli-chat-manager.ts   # Gemini CLI wrapper
+│       └── cli-parser.ts         # stream-json output parser
+├── website/          # Next.js web application (:3000)
 │   └── app/
-│       ├── cli-chat/         # CLI Chat interface
-│       ├── terminals/        # Terminal management
-│       └── ...
+│       ├── cli-chat/             # Chat interface
+│       ├── terminals/            # Terminal management
+│       ├── brainstorm/           # Multi-agent brainstorm
+│       └── antigravity/          # Conversation import
 └── .env.example      # Environment template
 ```
 
@@ -35,8 +71,12 @@ AgentHub/
 
 ### Prerequisites
 
-- Node.js 20+
-- Gemini CLI installed and authenticated (`npm i -g @anthropic-ai/gemini-cli`)
+- **Node.js 20+**
+- **Gemini CLI** installed and authenticated
+  ```bash
+  npm i -g @anthropic-ai/gemini-cli
+  gemini  # Follow auth prompts
+  ```
 
 ### Installation
 
@@ -46,11 +86,10 @@ git clone https://github.com/ateliersam86/AgentHub.git
 cd AgentHub
 
 # Install dependencies
-npm install
-cd daemon && npm install
-cd ../website && npm install
+cd daemon && npm install && cd ..
+cd website && npm install && cd ..
 
-# Copy environment template
+# Copy environment template (optional)
 cp .env.example .env
 ```
 
@@ -64,27 +103,45 @@ cd daemon && npm run dev
 cd website && npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to access the interface.
+Open [http://localhost:3000](http://localhost:3000)
 
-## 📸 Screenshot
+## 🔌 How It Works
 
-CLI Chat with token statistics and real-time responses.
+### CLI Chat Flow
+```
+Browser → WebSocket → Daemon → spawn gemini -o stream-json → Parse JSON → WebSocket → Browser
+```
+
+The daemon spawns `gemini -o stream-json -p "your message"` for each message, parses the streaming JSON output, and forwards events to the browser.
+
+### Why CLI instead of API?
+- **OAuth authentication** - Uses your Google account quota, not API keys
+- **No billing** - Included with Gemini Advanced subscription
+- **Same capabilities** - Full Gemini 2.0 Flash model
 
 ## 🔧 Environment Variables
 
-Copy `.env.example` to `.env` and configure:
+All optional - the project works without any configuration:
 
 | Variable | Description |
 |----------|-------------|
-| `DAEMON_AUTH_TOKEN` | Authentication token for daemon (auto-generated if empty) |
-| `GEMINI_API_KEY` | Optional: Gemini API key for direct mode |
+| `DAEMON_AUTH_TOKEN` | Custom auth token (auto-generated if empty) |
+| `GEMINI_PROJECT_ID` | GCP project ID for API mode |
+| `GEMINI_OAUTH_CLIENT_ID` | For token refresh (API mode only) |
+| `GEMINI_OAUTH_CLIENT_SECRET` | For token refresh (API mode only) |
 
 ## 🛠 Tech Stack
 
 - **Frontend**: Next.js 15, React, TailwindCSS
-- **Backend**: Node.js, WebSocket (ws)
-- **Terminal**: node-pty, xterm.js
-- **CLI Integration**: Gemini CLI
+- **Backend**: Node.js, WebSocket (ws), node-pty
+- **CLI**: Gemini CLI with stream-json output
+
+## 🗺 Roadmap (Maybe)
+
+- [ ] Multi-model support (Claude, Codex)
+- [ ] Conversation history/database
+- [ ] File context injection
+- [ ] Basic code editing
 
 ## 📄 License
 
@@ -92,4 +149,4 @@ MIT
 
 ---
 
-Built with ❤️ for AI-powered development
+Built with ❤️ as a learning project for AI agent architecture
