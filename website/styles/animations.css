@@ -1,0 +1,110 @@
+/**
+ * Agent Hub - Animations CSS
+ * Adapted from Event Tracker
+ */
+
+/* ============================================
+ * PAGE ENTRANCE
+ * ============================================ */
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-enter {
+  animation: enter var(--duration-normal) var(--ease-out) forwards;
+}
+
+/* ============================================
+ * FADE IN
+ * ============================================ */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in var(--duration-normal) var(--ease-default) forwards;
+}
+
+/* ============================================
+ * SLIDE UP
+ * ============================================ */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up var(--duration-normal) var(--ease-out) forwards;
+}
+
+/* ============================================
+ * SHIMMER (skeleton loading)
+ * ============================================ */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface) 25%,
+    var(--color-surface-elevated) 50%,
+    var(--color-surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+/* ============================================
+ * TYPING DOTS
+ * ============================================ */
+@keyframes typing-bounce {
+  0%, 60%, 100% { 
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% { 
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+/* ============================================
+ * SPIN (loading)
+ * ============================================ */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* ============================================
+ * STAGGER DELAYS
+ * ============================================ */
+.stagger-1 { --stagger-index: 1; }
+.stagger-2 { --stagger-index: 2; }
+.stagger-3 { --stagger-index: 3; }
+.stagger-4 { --stagger-index: 4; }
+.stagger-5 { --stagger-index: 5; }
+
+[class*="stagger-"] {
+  animation-delay: calc(var(--stagger-index, 0) * 60ms);
+}

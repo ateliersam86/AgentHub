@@ -1,0 +1,121 @@
+/**
+ * Agent Hub - Theme CSS Tokens
+ * Adapted from Event Tracker design system
+ * Acrylic/Glassmorphism with noise texture
+ */
+
+:root {
+  /* ============================================
+   * COLORS - Agent Hub Theme (Blue/Indigo)
+   * ============================================ */
+  
+  /* Primary (Agent Blue) */
+  --color-primary: #4285f4;
+  --color-primary-hover: #5a9cf5;
+  --color-primary-muted: rgba(66, 133, 244, 0.1);
+  --color-primary-alpha: rgba(66, 133, 244, 0.3);
+  
+  /* Secondary (Codex Green) */
+  --color-secondary: #10a37f;
+  --color-secondary-hover: #1db990;
+  --color-secondary-muted: rgba(16, 163, 127, 0.1);
+  --color-secondary-alpha: rgba(16, 163, 127, 0.3);
+  
+  /* Accent (Violet) */
+  --color-accent: #8b5cf6;
+  --color-accent-hover: #a78bfa;
+  --color-accent-muted: rgba(139, 92, 246, 0.1);
+  --color-accent-alpha: rgba(139, 92, 246, 0.08);
+  
+  /* Background layers (Acrylic/Glassmorphism) */
+  --color-background: #0a0a0b;
+  --color-surface: rgba(24, 24, 27, 0.85);
+  --color-surface-solid: #18181b;
+  --color-surface-elevated: rgba(39, 39, 42, 0.92);
+  --color-surface-hover: rgba(255, 255, 255, 0.04);
+  
+  /* Acrylic effect */
+  --acrylic-blur: 12px;
+  --acrylic-saturation: 1.2;
+  
+  /* Text */
+  --color-text: #fafafa;
+  --color-text-secondary: #a1a1aa;
+  --color-text-muted: #71717a;
+  --color-text-disabled: #52525b;
+  
+  /* Borders (subtle) */
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(255, 255, 255, 0.15);
+  --color-border-focus: var(--color-primary-alpha);
+  
+  /* Status Colors */
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: var(--color-primary);
+  
+  /* Agent Colors */
+  --agent-gemini: #4285f4;
+  --agent-codex: #10a37f;
+  --agent-claude: #cc785c;
+  
+  /* Glows */
+  --shadow-glow-primary: 0 0 20px var(--color-primary-alpha);
+  --shadow-glow-secondary: 0 0 20px var(--color-secondary-alpha);
+  --shadow-glow-accent: 0 0 30px var(--color-accent-alpha);
+  
+  /* ============================================
+   * SPACING
+   * ============================================ */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  
+  /* ============================================
+   * RADIUS - More organic
+   * ============================================ */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-full: 9999px;
+  
+  /* ============================================
+   * SHADOWS
+   * ============================================ */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.5);
+  
+  /* ============================================
+   * TYPOGRAPHY
+   * ============================================ */
+  --font-sans: var(--font-geist-sans), 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: var(--font-geist-mono), 'JetBrains Mono', 'Fira Code', monospace;
+  
+  /* ============================================
+   * DURATIONS & EASINGS
+   * ============================================ */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  
+  /* ============================================
+   * NOISE TEXTURE (Windows Acrylic)
+   * ============================================ */
+  --noise-filter: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  --noise-opacity: 0.22;
+  --noise-opacity-hover: 0.28;
+  --noise-opacity-subtle: 0.15;
+}
