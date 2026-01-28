@@ -73,12 +73,10 @@ export default function CLIChatPage() {
         daemonClient.cliChatSubscribe(msg.sessionId);
         
         // Add system message
-        const modeInfo = msg.data?.includes('warm') ? 'WARM' : 'COLD';
-        setIsWarm(modeInfo === 'WARM');
         setMessages([{
           id: `sys_${Date.now()}`,
           role: 'system',
-          content: `Connected to ${msg.data || 'Gemini'} (${modeInfo} mode). Project: ${projectPath}`,
+          content: `Connected to ${msg.data || 'Gemini'}. Project: ${projectPath}`,
           timestamp: new Date(),
         }]);
       }
